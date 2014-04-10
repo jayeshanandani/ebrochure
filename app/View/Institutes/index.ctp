@@ -23,14 +23,14 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $institute['Institute']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $institute['Institute']['id'])); ?>
-			<?php 
-            if($institute['Institute']['isActive'] == 1){
-                echo $this->Form->postLink(__('Active'), array('action' => 'activate', $institute['Institute']['id']), null, __('Are you sure you want to deactivate # %s?', $institute['Institute']['id'])); 
+			<?php
+            if($institute['Institute']['isActive'] == 0){
+                echo $this->Form->postLink(__('Active'), array('action' => 'activate', $institute['Institute']['id']), null, __('Are you sure you want to deactivate # %s?', $institute['Institute']['id']));
             }
         ?>
-        <?php 
-            if($institute['Institute']['isActive'] == 0){
-                echo $this->Form->postLink(__('Deactive'), array('action' => 'deactivate', $institute['Institute']['id']), null, __('Are you sure you want to activate # %s?', $institute['Institute']['id'])); 
+        <?php
+            if($institute['Institute']['isActive'] == 1){
+                echo $this->Form->postLink(__('Deactive'), array('action' => 'deactivate', $institute['Institute']['id']), null, __('Are you sure you want to activate # %s?', $institute['Institute']['id']));
             }
         ?>
 		</td>

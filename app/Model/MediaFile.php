@@ -6,6 +6,7 @@ App::uses('AppModel', 'Model');
  * @property User $User
  */
 class MediaFile extends AppModel {
+
 	public $name = 'MediaFile';
 
     public $validate = array(
@@ -45,13 +46,6 @@ class MediaFile extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-public function beforeFilter() {
-         parent::beforeFilter();
-
-
-        $this->Auth->allow('add','view','index','edit');
-
-    }
     public $actsAs = array('WhoDidIt');
 
    /**

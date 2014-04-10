@@ -24,10 +24,6 @@ class Task extends AppModel {
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Please Enter the Title of task',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);

@@ -46,7 +46,7 @@
 			<?php echo h($mediaFile['MediaFile']['type']); ?>
 			&nbsp;
 		</dd>
-		<?php $image = array('jpg','png','jpeg'); 
+		<?php $image = array('jpg','png','jpeg');
 		      if (in_array($mediaFile['MediaFile']['type'],$image)) {
 		?>
 		<dt><?php echo __('Filename'); ?></dt>
@@ -54,7 +54,7 @@
 			<?php echo $this->Html->image('uploads/'.$mediaFile['MediaFile']['name'].'.'.$mediaFile['MediaFile']['type']); }?>
 			&nbsp;
 		</dd>
-		<?php $media = array('pdf'); 
+		<?php $media = array('pdf');
 		      if (in_array($mediaFile['MediaFile']['type'],$media)) {
 		?>
 		<dt><?php echo __('Filename'); ?></dt>
@@ -68,9 +68,9 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		
+
 		<li><?php echo $this->Html->link(__('List Media Files'), array('action' => 'index')); ?> </li>
-		
+
 		<li><?php echo $this->Html->link(__('My Dashboard'), array('controller' => 'users', 'action' => 'user_info')); ?> </li>
 	</ul>
 </div>

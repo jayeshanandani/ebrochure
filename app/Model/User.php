@@ -8,11 +8,8 @@
  * @property UserLog $UserLog
  */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
-App::uses('MyModel', 'Tools.Model');
 class User extends AppModel {
 
-
-//var $name='User';
 public $displayField = 'username';
 public $uploadDir = 'uploads';
 public $actsAs = array('WhoDidIt');
@@ -33,16 +30,7 @@ public $validate = array(
             'message' => 'This username has already been taken.'
         ),
     ),
-
 		'password' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				'message' => 'Enter a Password',
-				'allowEmpty' => false,
-				'required' => true,
-			),
-		),
-		'password_retype' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Enter a Password',
@@ -56,7 +44,6 @@ public $validate = array(
 				'message' => 'Enter your FirstName',
 			),
 		),
-
 	'role_id' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -70,7 +57,6 @@ public $validate = array(
 				'message' => 'Enter your MiddleName',
 			),
 		),
-
 		'email' => array(
 			'notEmpty' => array(
 					'rule' => 'notEmpty',
@@ -110,7 +96,6 @@ public $validate = array(
 				'last' => TRUE,
 			),
 		),
-
 		'contact' => array(
 			'contact' => array(
 				'rule' => array('phone','/^[1-9]{1}[0-9]{9}$/i'),
@@ -121,7 +106,6 @@ public $validate = array(
 				'message' => 'Enter Valid Phone Number'
 			),
 		),
-
 		'securityque' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -131,11 +115,6 @@ public $validate = array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Provide a security answer',
-			),
-		),
-		'isActive' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
 			),
 		),
 	);
@@ -173,13 +152,6 @@ public function processUpload($check=array()) {
 	return TRUE;
 }
 
-
-public function beforeFilter() {
-         parent::beforeFilter();
-        $this->Auth->allow('login','lost_password');
-    }
-
-
  public function beforeSave($options = array()) {
 
 	if (!empty($this->data[$this->alias]['filepath'])) {
@@ -202,30 +174,6 @@ public function beforeValidate($options = array()) {
 
 	parent::beforeValidate($options);
 }
-
-
-/**
- * hasMany associations
- *
- * @var array
- */
-	public $hasMany = array(
-
-		'UserLog' => array(
-			'className' => 'UserLog',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-
-			)
-	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
