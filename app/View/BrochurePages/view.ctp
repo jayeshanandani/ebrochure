@@ -1,3 +1,4 @@
+<?php echo $this->element('navigation'); ?>
 <div class="brochurePages view">
 <h2><?php echo __('Brochure Page'); ?></h2>
 	<dl>
@@ -57,13 +58,4 @@
 			&nbsp;
 		</dd>
 	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Brochure Page'), array('action' => 'edit', $brochurePage['BrochurePage']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Brochure Page'), array('action' => 'delete', $brochurePage['BrochurePage']['id']), null, __('Are you sure you want to delete # %s?', $brochurePage['BrochurePage']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Brochure Pages'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Brochure Page'), array('action' => 'add')); ?> </li>
-	</ul>
 </div>

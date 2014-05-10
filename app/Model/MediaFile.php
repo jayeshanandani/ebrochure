@@ -9,8 +9,14 @@ class MediaFile extends AppModel {
 
 	public $name = 'MediaFile';
 
+
     public $validate = array(
         'filename' => array(
+
+            'unique' => array(
+                'rule' => array('validateUnique', array('name','page_id')),
+                'message' => 'Your input violates a unique key constraint, check your input and try again.',
+            ),
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(
                 'rule' => 'uploadError',
@@ -111,10 +117,24 @@ public function processUpload($check=array()) {
 public function beforeSave($options = array()) {
     // a file has been uploaded so grab the filepath
     if (!empty($this->data[$this->alias]['filepath'])) {
-        $this->data[$this->alias]['filename'] = $this->data[$this->alias]['filepath'];
+        $this->data[$this->alias]['path'] = $this->data[$this->alias]['filepath'];
+        $name = $this->data[$this->alias]['name'];
+        $extension =  $this->data[$this->alias]['type'];
+        $this->data[$this->alias]['filename'] = $name.'.'.$extension;
+
     }
 
     return parent::beforeSave($options);
 }
+
+public $belongsTo = array(
+        'BrochurePage' => array(
+            'className' => 'BrochurePage',
+            'foreignKey' => 'page_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        ),
+    );
 
 }

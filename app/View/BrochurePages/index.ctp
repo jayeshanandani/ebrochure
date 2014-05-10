@@ -1,3 +1,4 @@
+<?php echo $this->element('navigation'); ?>
 <div class="brochurePages index">
 	<h2><?php echo __('Brochure Pages'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
@@ -9,25 +10,18 @@
 			<th><?php echo $this->Paginator->sort('hasText'); ?></th>
 			<!--<th><?php echo $this->Paginator->sort('media_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('isActive'); ?></th>-->
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
-			<th><?php echo $this->Paginator->sort('creator_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('modifier_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($brochurePages as $brochurePage): ?>
 	<tr>
 		<td><?php echo h($brochurePage['BrochurePage']['id']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['brochure_id']); ?>&nbsp;</td>
+		<td><?php echo h($brochurePage['MstBrochure']['name']);  ?>&nbsp;</td>
 		<td><?php echo h($brochurePage['BrochurePage']['pageIndex']); ?>&nbsp;</td>
 		<td><?php echo h($brochurePage['BrochurePage']['isForeGround']); ?>&nbsp;</td>
 		<td><?php echo h($brochurePage['BrochurePage']['hasText']); ?>&nbsp;</td>
 		<!--<td><?php echo h($brochurePage['BrochurePage']['media_id']); ?>&nbsp;</td>
 		<td><?php echo h($brochurePage['BrochurePage']['isActive']); ?>&nbsp;</td>-->
-		<td><?php echo h($brochurePage['BrochurePage']['created']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['modified']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['creator_id']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['modifier_id']); ?>&nbsp;</td>
+		
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $brochurePage['BrochurePage']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $brochurePage['BrochurePage']['id'])); ?>
@@ -64,6 +58,7 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('New Brochure Page'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('Page Texts'), array('controller' => 'pagetexts', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Generate XML'), array('controller' => 'brochurepages', 'action' => 'index.xml')); ?> </li>
 		<li><?php echo $this->Html->link(__('My Dashboard'), array('controller' => 'users', 'action' => 'user_info')); ?> </li>
 	</ul>
 </div>

@@ -1,3 +1,4 @@
+<?php echo $this->element('navigation'); ?>
 <div class="mstBrochures view">
 <h2><?php echo __('Mst Brochure'); ?></h2>
 	<dl>
@@ -58,14 +59,53 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Mst Brochure'), array('action' => 'edit', $mstBrochure['MstBrochure']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Mst Brochure'), array('action' => 'delete', $mstBrochure['MstBrochure']['id']), null, __('Are you sure you want to delete # %s?', $mstBrochure['MstBrochure']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Mst Brochures'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Mst Brochure'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Institutes'), array('controller' => 'institutes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Institute'), array('controller' => 'institutes', 'action' => 'add')); ?> </li>
-	</ul>
+
+<div class="related">
+    <h3><?php echo __('Related Pages'); ?></h3>
+    
+    <?php if (!empty($mstBrochure['BrochurePage'])): ?>
+    <table cellpadding = "0" cellspacing = "0">
+    <tr>
+        <th><?php echo __('Id'); ?></th>
+        <th><?php echo __('Media Id'); ?></th>
+        <th><?php echo __('Page index'); ?></th>
+        <th><?php echo __('Is Foreground'); ?></th>
+        <th><?php echo __('has text'); ?></th>
+        <th class="actions"><?php echo __('Actions'); ?></th>
+    </tr>
+    <?php foreach ($mstBrochure['BrochurePage'] as $pages): ?>
+        <tr>
+            <td><?php echo $pages['id']; ?></td>
+            <td><?php echo $pages['media_id']; ?></td>
+            <td><?php echo $pages['pageIndex']; ?></td>
+            <td><?php echo $pages['isForeGround']; ?></td>
+            <td><?php echo $pages['hasText']; ?></td>
+            
+            <td class="actions">
+                <?php echo $this->Html->link(__('View'), array('controller' => 'brochure_pages', 'action' => 'view', $pages['id'])); ?>
+                <?php echo $this->Html->link(__('Edit'), array('controller' => 'brochure_pages', 'action' => 'edit', $pages['id'])); ?>
+                <?php
+            if($pages['isActive'] == 1){
+                echo $this->Form->postLink(__('Deactive'), array('controller' => 'brochure_pages','action' => 'deactivate', $pages['id']), null, __('Are you sure you want to deactivate # %s?', $pages['id']));
+            }
+        ?>
+        <?php
+            if($pages['isActive'] == 0){
+                echo $this->Form->postLink(__('Active'), array('controller' => 'brochure_pages','action' => 'activate', $pages['id']), null, __('Are you sure you want to activate # %s?', $pages['id']));
+            }
+        ?>
+
+        <?php echo $this->Html->link(__('Generate Page XML'), array('controller' => 'page_texts','action' => 'index.xml')); ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+ 
+    <div class="actions">
+        <ul>
+            <li><?php echo $this->Html->link(__('Add Pages'), array('controller' => 'brochure_pages', 'action' => 'add')); ?> </li>
+             <li><?php echo $this->Html->link(__('Generate XML'), array('controller' => 'brochure_pages', 'action' => 'index.xml')); ?> </li>
+        </ul>
+    </div>
 </div>

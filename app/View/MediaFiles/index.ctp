@@ -1,3 +1,4 @@
+<?php echo $this->element('navigation'); ?>
 <div class="mediaFiles index">
 	<h2><?php echo __('Media Files'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
@@ -16,7 +17,7 @@
 	<?php foreach ($mediaFiles as $mediaFile): ?>
 	<tr>
 		<!--<td><?php echo h($mediaFile['MediaFile']['id']); ?>&nbsp;</td>-->
-		<!--<td>
+		<!--<td>stu_cam
 			<?php echo $this->Html->link($mediaFile['User']['id'], array('controller' => 'users', 'action' => 'view', $mediaFile['User']['id'])); ?>
 		</td>-->
 		<!--<td><?php echo h($mediaFile['MediaFile']['created']); ?>&nbsp;</td>
@@ -28,15 +29,14 @@
 		<td><?php echo h($mediaFile['MediaFile']['filename']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $mediaFile['MediaFile']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $mediaFile['MediaFile']['id'])); ?>
 			<?php
             if($mediaFile['MediaFile']['isActive'] == 1){
-                echo $this->Form->postLink(__('Active'), array('action' => 'activate', $mediaFile['MediaFile']['id']), null, __('Are you sure you want to deactivate # %s?', $mediaFile['MediaFile']['id']));
+                echo $this->Form->postLink(__('Deactive'), array('action' => 'deactivate', $mediaFile['MediaFile']['id']), null, __('Are you sure you want to deactivate # %s?', $mediaFile['MediaFile']['id']));
             }
         ?>
         <?php
             if($mediaFile['MediaFile']['isActive'] == 0){
-                echo $this->Form->postLink(__('Deactive'), array('action' => 'deactivate', $mediaFile['MediaFile']['id']), null, __('Are you sure you want to activate # %s?', $mediaFile['MediaFile']['id']));
+                echo $this->Form->postLink(__('Active'), array('action' => 'activate', $mediaFile['MediaFile']['id']), null, __('Are you sure you want to activate # %s?', $mediaFile['MediaFile']['id']));
             }
         ?>
         <?php echo $this->Html->link(__('View pdf'), array('action' => 'viewpdf')); ?>
@@ -61,8 +61,6 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Media File'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('My Dashboard'), array('controller' => 'users', 'action' => 'user_info')); ?> </li>
-		<!--<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>-->
+		<li><?php echo $this->Html->link(__('Generate XML'), array('controller' => 'mediafiles', 'action' => 'index.xml')); ?> </li>
 	</ul>
 </div>

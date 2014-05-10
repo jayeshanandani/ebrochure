@@ -20,8 +20,8 @@ class UsersController extends AppController {
     public $components = array('Paginator', 'Session');
     public $name = 'Users';
     public $helpers = array('Html', 'Form');
-    public $permissions = array('logout' => '*', 'dash' => array('user'),
-                                'delete' => array('admin'), 'add' => array('admin'));
+    /*public $permissions = array('logout' => '*', 'dash' => array('user'),
+                                'delete' => array('admin'), 'add' => array('admin'));*/
 
     /**
      * view method
@@ -44,13 +44,14 @@ class UsersController extends AppController {
 
     public function login() {
         if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
+            if ($this->Auth->login() ) {
                 if ($this->Auth->user('isActive') == 0) {
                     $this->Session->setFlash('User not active.');
                     $this->Auth->logout();
                     $this->redirect(array('action' => 'login'));
                 } else {
-                    return $this->redirect('/user_info');
+                    debug($this->Session->read('Auth.User.Role.role'));
+                    return $this->redirect($this->Auth->redirect());
                 }
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
@@ -141,12 +142,12 @@ class UsersController extends AppController {
                 'securityque',
                 'securityans'
             ))) {
-                $this->Session->setFlash('The task has been saved.');
+                $this->Session->setFlash('The user information has been edited.');
                 return $this->redirect(array(
                     'action' => 'user_info'
                 ));
             } else {
-                $this->Session->setFlash('The task could not be saved. Please, try again.');
+                $this->Session->setFlash('The user information could not be edited. Please, try again.');
             }
         } else {
             $options             = array(
@@ -196,7 +197,7 @@ class UsersController extends AppController {
                         'email'
                     ),
                     'conditions' => array(
-                        'email' => $this->request->data['User']['email']
+                        'User.email' => $this->request->data['User']['email']
                     )
                 ));
             }
@@ -324,7 +325,7 @@ class UsersController extends AppController {
         if ($this->request->is(array('post','put'))) {
             $this->User->id = $id;
             if (!$this->User->exists()) {
-                throw new NotFoundException(__('Invalid company test'));
+                throw new NotFoundException(__('Invalid task'));
             }
             $this->request->data['User']['id']       = $id;
             $this->request->data['User']['isActive'] = 0;
@@ -342,7 +343,7 @@ class UsersController extends AppController {
         if ($this->request->is(array('post','put'))) {
             $this->User->id = $id;
             if (!$this->User->exists()) {
-                throw new NotFoundException(__('Invalid company test'));
+                throw new NotFoundException(__('Invalid task'));
             }
             $this->request->data['User']['id']       = $id;
             $this->request->data['User']['isActive'] = 1;

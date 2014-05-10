@@ -13,6 +13,7 @@ class MstBrochure extends AppModel {
  * @var string
  */
 	public $displayField = 'name';
+	public $actsAs = array('Containable');
 
 /**
  * Validation rules
@@ -21,38 +22,30 @@ class MstBrochure extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+        'required' => array(
+            'rule' => array('notEmpty'),
+            'message' => 'You must enter a name'
+        ),
+        'unique' => array(
+            'rule'    => 'isUnique',
+            'message' => 'This name has already been taken.'
+        ),
+    ),
 		'description' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+
 			),
 		),
 		'bgColor' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+
 			),
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
 
 /**
  * belongsTo associations

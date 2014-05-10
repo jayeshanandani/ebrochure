@@ -24,6 +24,12 @@ class TasksController extends AppController {
     public function index() {
         $this->Task->recursive = 0;
         $this->set('tasks', $this->Paginator->paginate());
+
+        $tasks = $this->Task->find('all');
+        $this->set(array(
+            'tasks' => $tasks,
+            '_serialize' => array('tasks')
+        ));
     }
 
     /**

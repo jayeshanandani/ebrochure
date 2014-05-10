@@ -6,6 +6,7 @@ App::uses('AppModel', 'Model');
  */
 class BrochurePage extends AppModel {
 
+public $displayField = 'pageIndex';
 /**
  * Validation rules
  *
@@ -46,4 +47,33 @@ public $belongsTo = array(
 			'order' => ''
 		),
 	);
+public $hasMany =  array(
+		'PageText' => array(
+			'className' => 'PageText',
+			'foreignKey' => 'page_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+
+		'MediaFile' => array(
+			'className' => 'MediaFile',
+			'foreignKey' => 'page_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+
+
+	);
+
+public function getListByBrochure($cid = null) {
+		if (empty($cid)) {
+			return array();
+		}
+		return $this->find('list', array(
+			'conditions' => array($this->alias . '.brochure_id' => $cid),
+			//'order' => array($this->alias.'.name'=>'ASC')
+		));
+	}
 }

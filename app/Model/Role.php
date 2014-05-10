@@ -11,6 +11,18 @@ class Role extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'name';
+	public $displayField = 'role';
+
+	public $hasMany = array(
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'role_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+		)
+	);
+
 
 }

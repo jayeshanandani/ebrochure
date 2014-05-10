@@ -63,3 +63,29 @@ allow = aco3, aco4
 [groupname-goes-here]
 deny = aco5, aco6
 allow = aco7, aco8
+
+;---------------------------------------
+;User
+;---------------------------------------
+
+[Users]
+add=admin
+ *= user,admin
+
+[MediaFiles]
+*=user,admin
+
+[MstBrochureTypes]
+*=user,admin
+
+[MstBrochure]
+*=user,admin
+
+[Institutes]
+*=user,admin
+
+[BrochurePages]
+*=user,admin
+
+[PageTexts]
+*=user,admin

@@ -6,12 +6,6 @@ App::uses('AppModel', 'Model');
  */
 class PageText extends AppModel {
 
-/**
- * Use table
- *
- * @var mixed False or table name
- */
-	public $useTable = 'page_text';
 
 /**
  * Validation rules
@@ -22,17 +16,62 @@ class PageText extends AppModel {
 		'textContent' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
+				
 			),
 		),
+		
 		'txtColor' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				
+			),
+		),
+	'xPos' => array(
+			'notEmpty' => array(
+				'rule' => 'naturalNumber',
+				'message' => 'Enter value greater than 0',
+				
+			),
+		),
+'yPos' => array(
+			'notEmpty' => array(
+				'rule' => 'naturalNumber',
+				'message' => 'Enter value greater than 0',
+				
+			),
+		),
+'txtWidth' => array(
+			'notEmpty' => array(
+				'rule' => 'naturalNumber',
+				'message' => 'Enter value greater than 0',
+				
+			),
+		),
+'txtHeight' => array(
+			'notEmpty' => array(
+				'rule' => 'naturalNumber',
+				'message' => 'Enter value greater than 0',
+				
+			),
+		),
+'txtFontsize' => array(
+			'notEmpty' => array(
+				'rule' => 'naturalNumber',
+				'message' => 'Enter value greater than 0',
+				
 			),
 		),
 	);
+public $belongsTo = array(
+		'BrochurePage' => array(
+			'className' => 'BrochurePage',
+			'foreignKey' => 'page_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+	);
+
 }
+
+

@@ -1,4 +1,5 @@
-<?php echo AuthComponent::user('id'); ?>
+<?php echo $this->Session->flash('auth'); ?>
+<?php echo $this->element('navigation'); ?>
 <?php echo $this->Session->read('User.username'); ?>
 
 <div class="users index">
@@ -7,8 +8,6 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('role_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('creator_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('modifier_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('username'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -17,8 +16,6 @@
 	<tr>
 		<td><?php echo h($user['User']['id']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['role_id']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['creator_id']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['modifier_id']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['username']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 		<td class="actions">
@@ -52,13 +49,17 @@
 	?>
 	</div>
 </div>
-<div class="actions">
+<!--<div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('Media Files'), array('controller' => 'media_files', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Institutes'), array('controller' => 'institutes', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Tasks'), array('controller' => 'tasks', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Brochure Type'), array('controller' => 'mst_brochure_types', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Brochures'), array('controller' => 'mst_brochures', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Brochure Pages'), array('controller' => 'brochure_pages', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Pages'), array('controller' => 'page_texts', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Logout'), array('action' => 'logout')); ?></li>
 	</ul>
-</div>
+</div>-->

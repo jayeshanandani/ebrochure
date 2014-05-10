@@ -25,17 +25,17 @@
 body {
 	background: #003d4c;
 	color: #fff;
-	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
-	font-size:90%;
+	font-family:times;
+	font-size:100%;
 	margin: 0;
 }
 a {
-	color: #003d4c;
+	color: #F11464;
 	text-decoration: underline;
-	font-weight: bold;
+	font-style: italic;
 }
 a:hover {
-	color: #367889;
+	color: #F11464;
 	text-decoration:none;
 }
 a img {
@@ -51,10 +51,11 @@ h1 {
 	font-size: 100%;
 }
 h2 {
-	background:#fff;
-	color: #e32;
-	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
+	background:#FFF;
+	color: #F11464;
+	font-family:times;
 	font-size: 190%;
+	font-style: italic;
 }
 h3 {
 	color: #2c6877;
@@ -98,7 +99,7 @@ p {
 	text-decoration: underline;
 }
 #content{
-	background: #fff;
+	background: #FFF;
 	clear: both;
 	color: #333;
 	padding: 10px 20px 40px 20px;
@@ -108,6 +109,8 @@ p {
 	clear: both;
 	padding: 6px 10px;
 	text-align: right;
+
+
 }
 #header a, #footer a {
 	color: #fff;
@@ -119,7 +122,6 @@ div.index,
 div.view {
 	float:right;
 	width:76%;
-	border-left:1px solid #666;
 	padding:10px 2%;
 }
 div.actions {
@@ -129,7 +131,7 @@ div.actions {
 }
 div.actions h3 {
 	padding-top:0;
-	color:#777;
+	color:#F11464;
 }
 
 
@@ -137,7 +139,7 @@ div.actions h3 {
 table {
 	border-right:0;
 	clear: both;
-	color: #333;
+	color: #F11464;
 	margin-bottom: 10px;
 	width: 100%;
 }
@@ -146,6 +148,7 @@ th {
 	border-bottom:2px solid #555;
 	text-align: left;
 	padding:4px;
+	font-style: italic;
 }
 th a {
 	display: block;
@@ -163,12 +166,13 @@ table tr td {
 	text-align: left;
 	vertical-align: top;
 	border-bottom:1px solid #ddd;
+	font-style: italic;
 }
 table tr:nth-child(even) {
-	background: #f9f9f9;
+	background: #fff;
 }
 td.actions {
-	text-align: center;
+	text-align: left;
 	white-space: nowrap;
 }
 table td.actions a {
@@ -191,7 +195,7 @@ table td.actions a {
 
 /** Paging **/
 .paging {
-	background:#fff;
+	background:#FFF;
 	color: #ccc;
 	margin-top: 1em;
 	clear:both;
@@ -238,10 +242,11 @@ dl {
 	line-height: 2em;
 	margin: 0em 0em;
 	width: 60%;
+	border-width: 1px;
 }
 dl dd:nth-child(4n+2),
 dl dt:nth-child(4n+1) {
-	background: #f4f4f4;
+	background: #FFEBCD;
 }
 
 dt {
@@ -271,7 +276,9 @@ fieldset {
 fieldset legend {
 	color: #e32;
 	font-size: 160%;
-	font-weight: bold;
+	font:times;
+	font-family:inherit;
+	font-style: italic;
 }
 fieldset fieldset {
 	margin-top: 0;
@@ -358,21 +365,21 @@ input[type=submit] {
 }
 form .submit input[type=submit] {
 	/*background:#62af56;*/
-	background:#0f7b9c;
+	background:#C82536;
 	
 	/*	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));*/
-		background-image: -webkit-gradient(linear, left top, left bottom, from(#6495ED), to(#8EE5EE));
-	/*	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);*/
-		background-image: -webkit-linear-gradient(top, #6495ED, #8EE5EE);
+	/*background-image: -webkit-gradient(linear, left top, left bottom, from(#6495ED), to(#8EE5EE));
+	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
+		background-image: -webkit-linear-gradient(top, #6495ED, #8EE5EE);*/
 	/*background-image: -moz-linear-gradient(top, #76BF6B, #3B8230);*/
-	border-color: #16acda;
+	border-color: #C82536;
 	color: #fff;
 	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
 	padding: 8px 10px;
 }
 form .submit input[type=submit]:hover {
 	/*background: #5BA150;*/
-	background:#7AC5CD;
+	background:#C82536;
 }
 /* Form errors */
 form .error {
@@ -517,14 +524,14 @@ input[type=submit],
 .actions a {
 	font-weight:normal;
 	padding: 4px 8px;
-	background: #dcdcdc;
+	/*background: #dcdcdc;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#dcdcdc));
 	background-image: -webkit-linear-gradient(top, #fefefe, #dcdcdc);
 	background-image: -moz-linear-gradient(top, #fefefe, #dcdcdc);
 	background-image: -ms-linear-gradient(top, #fefefe, #dcdcdc);
 	background-image: -o-linear-gradient(top, #fefefe, #dcdcdc);
-	background-image: linear-gradient(top, #fefefe, #dcdcdc);
-	color:#333;
+	background-image: linear-gradient(top, #fefefe, #dcdcdc);*/
+	color:#000;
 	border:1px solid #bbb;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;

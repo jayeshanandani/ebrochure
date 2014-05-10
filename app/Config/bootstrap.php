@@ -108,4 +108,7 @@ CakeLog::config('error', array(
 
 CakePlugin::load('Authenticate');
 CakePlugin::load('GnuBrochure');
+CakePlugin::load('DebugKit');
 CakePlugin::load('Tools', array('bootstrap' => true));
+App::uses('Auth', 'Tools.Lib');
+

@@ -72,16 +72,56 @@ class InstitutesController extends AppController {
         $this->request->data['Institute']['id']=$id;
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Institute->save($this->request->data,'true',array('id','modifier_id','name'))) {
-                $this->Session->setFlash(__('The task has been saved.'));
+                $this->Session->setFlash(__('The institute name has been edited.'));
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The task could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The institute name could not be edited. Please, try again.'));
             }
         } else {
             $options = array('conditions' => array('Institute.' . $this->Institute->primaryKey => $id));
             $this->request->data = $this->Institute->find('first', $options);
         }
 
+    }
+
+    public function deactivate($id = null) {
+        if ($this->request->is(array('post','put'))) {
+            $this->Institute->id = $id;
+            if (!$this->Institute->exists()) {
+                throw new NotFoundException(__('Invalid task'));
+            }
+            $this->request->data['Institute']['id']       = $id;
+            $this->request->data['Institute']['isActive'] = 0;
+            if ($this->Institute->save($this->request->data, true, array('id','isActive'))) {
+                $this->Session->setFlash('Institute has been deactivated.');
+            } else {
+                $this->Session->setFlash('Institute could not be deactivated. Please, try again.');
+            }
+            return $this->redirect(array(
+                'action' => 'index'
+            ));
+        }
+    }
+    public function activate($id = null) {
+        if ($this->request->is(array('post','put'))) {
+            $this->Institute->id = $id;
+            if (!$this->Institute->exists()) {
+                throw new NotFoundException(__('Invalid task'));
+            }
+            $this->request->data['Institute']['id']       = $id;
+            $this->request->data['Institute']['isActive'] = 1;
+            if ($this->Institute->save($this->request->data, true, array(
+                'id',
+                'isActive'
+            ))) {
+                $this->Session->setFlash('Institute has been activated.');
+            } else {
+                $this->Session->setFlash('Institute could not be activated. Please, try again.');
+            }
+            return $this->redirect(array(
+                'action' => 'index'
+            ));
+        }
     }
 
 }

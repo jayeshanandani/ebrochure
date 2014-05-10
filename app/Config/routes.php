@@ -25,7 +25,21 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'user_info'));
+	Router::connect('/add', array('controller' => 'users', 'action' => 'add'));
 	 Router::connect('/user_info', array('controller' => 'users', 'action' => 'user_info'));
+	 Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+	 Router::connect('/media', array('controller' => 'mediaFiles', 'action' => 'index'));
+	 Router::connect('/upload', array('controller' => 'media_files', 'action' => 'add'));
+	 Router::connect('/institute', array('controller' => 'institutes', 'action' => 'index'));
+	 Router::connect('/add_inst', array('controller' => 'institutes', 'action' => 'add'));
+	 Router::connect('/create brochure', array('controller' => 'mst_brochure_types', 'action' => 'index'));
+	 Router::connect('/add type', array('controller' => 'mst_brochure_types', 'action' => 'add'));
+	 Router::connect('/mst_br', array('controller' => 'mst_brochures', 'action' => 'index'));
+	 Router::connect('/add task', array('controller' => 'mst_brochures', 'action' => 'add'));
+	 Router::connect('/br_pages', array('controller' => 'brochure_pages', 'action' => 'add'));
+	 Router::connect('/page_text', array('controller' => 'page_texts', 'action' => 'add'));
+
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
@@ -36,7 +50,9 @@
  * how to customize the loading of plugin routes.
  */
 	CakePlugin::routes();
-  Router::parseExtensions();
+  Router::setExtensions(['json','xml']);
+  Router::parseExtensions('json','xml');
+
 
 /**
  * Load the CakePHP default routes. Only remove this if you do not want to use

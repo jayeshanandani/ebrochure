@@ -25,6 +25,12 @@ class MediaFilesController extends AppController {
     public function index() {
         $this->MediaFile->recursive = 0;
         $this->set('mediaFiles', $this->Paginator->paginate());
+
+         $mediafiles = $this->MediaFile->find('all');
+        $this->set(array(
+            'MediaFile' => $mediafiles,
+            '_serialize' => array('MediaFile')
+            ));
     }
 
     /**
@@ -57,16 +63,17 @@ class MediaFilesController extends AppController {
             $this->request->data['MediaFile']['name'] = $name;
             $this->request->data['MediaFile']['type'] = $extension;
             $this->request->data['MediaFile']['size'] = $this->request->data['MediaFile']['filename']['size'];
-            ;
             if ($this->MediaFile->save($this->request->data)) {
                 $this->Session->setFlash(__('The media file has been saved.'));
-                //return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The media file could not be saved. Please, try again.'));
             }
         }
-        //$users = $this->MediaFile->User->find('list');
-        //$this->set(compact('users'));
+        unset($this->request->data['MediaFile']['brochure_id']);
+        $brochures = $this->MediaFile->BrochurePage->MstBrochure->find('list');
+        $mediafiles = array();
+        $this->set(compact('mediafiles','brochures'));
     }
 
 
@@ -102,38 +109,21 @@ class MediaFilesController extends AppController {
 * @param string $id
 * @return void
 */
-    public function edit($id = null) {
-        if (!$this->MediaFile->exists($id)) {
-            throw new NotFoundException(__('Invalid task'));
-        }
-        $this->request->data['MediaFile']['id']=$id;
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->MediaFile->save($this->request->data,'true',array('id','modifier_id','filename','name','type','size'))) {
-                $this->Session->setFlash(__('The task has been saved.'));
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The task could not be saved. Please, try again.'));
-            }
-        } else {
-            $options = array('conditions' => array('MediaFile.' . $this->MediaFile->primaryKey => $id));
-            $this->request->data = $this->MediaFile->find('first', $options);
-        }
 
-    }
 
     public function deactivate($id = null) {
         if ($this->request->is(array('post', 'put'))) {
             $this->MediaFile->id = $id;
             if (!$this->MediaFile->exists()) {
-                throw new NotFoundException(__('Invalid company test'));
+                throw new NotFoundException(__('Invalid task'));
             }
             //$this->request->onlyAllow('post', 'delete');
             $this->request->data['MediaFile']['id']=$id;
-            $this->request->data['MediaFile']['isActive']= 1;
+            $this->request->data['MediaFile']['isActive']= 0;
             if ($this->MediaFile->save($this->request->data,true,array('id','isActive'))) {
-                $this->Session->setFlash(__('The company test has been deactivated.'));
+                $this->Session->setFlash(__('The media file has been deactivated.'));
             } else {
-                $this->Session->setFlash(__('The company test could not be deleted. Please, try again.'));
+                $this->Session->setFlash(__('The media file could not be deactivated. Please, try again.'));
             }
             return $this->redirect(array('action' => 'index'));
         }
@@ -141,16 +131,16 @@ class MediaFilesController extends AppController {
     public function activate($id = null) {
         if ($this->request->is(array('post', 'put'))) {
             $this->MediaFile->id = $id;
-            if (!$this->M->exists()) {
-                throw new NotFoundException(__('Invalid company test'));
+            if (!$this->MediaFile->exists()) {
+                throw new NotFoundException(__('Invalid task'));
             }
             //$this->request->onlyAllow('post', 'delete');
             $this->request->data['MediaFile']['id']=$id;
-            $this->request->data['MediaFile']['isActive']= 0;
+            $this->request->data['MediaFile']['isActive']= 1;
             if ($this->MediaFile->save($this->request->data,true,array('id','isActive'))) {
-                $this->Session->setFlash(__('The company test has been activated.'));
+                $this->Session->setFlash(__('The media file has been activated.'));
             } else {
-                $this->Session->setFlash(__('The company test could not be deleted. Please, try again.'));
+                $this->Session->setFlash(__('The media file activated. Please, try again.'));
             }
             return $this->redirect(array('action' => 'index'));
         }

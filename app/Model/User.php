@@ -190,6 +190,6 @@ public function beforeValidate($options = array()) {
 			'fields' => '',
 			'order' => ''
 		)
-	);
+	);   
 
 }

@@ -32,4 +32,16 @@ class MstBrochureType extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		);
+
+
+	public $hasMany = array(
+		'MstBrochure' => array(
+			'className' => 'MstBrochure',
+			'foreignKey' => 'type_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+	);
 }

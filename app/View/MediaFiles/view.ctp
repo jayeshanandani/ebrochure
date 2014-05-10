@@ -1,3 +1,4 @@
+<?php echo $this->element('navigation'); ?>
 <div class="mediaFiles view">
 <h2><?php echo __('Media File'); ?></h2>
 	<dl>
@@ -64,13 +65,4 @@
 		</dd>
 
 	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Media Files'), array('action' => 'index')); ?> </li>
-
-		<li><?php echo $this->Html->link(__('My Dashboard'), array('controller' => 'users', 'action' => 'user_info')); ?> </li>
-	</ul>
 </div>

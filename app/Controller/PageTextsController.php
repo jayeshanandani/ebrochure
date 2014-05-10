@@ -24,6 +24,12 @@ class PageTextsController extends AppController {
     public function index() {
         $this->PageText->recursive = 0;
         $this->set('pageTexts', $this->Paginator->paginate());
+
+        $brochure = $this->PageText->find('all');
+        $this->set(array(
+            'PageText' => $brochure,
+            '_serialize' => array('PageText')
+            ));
     }
 
     /**
@@ -56,6 +62,9 @@ class PageTextsController extends AppController {
                 $this->Session->setFlash(__('The page text could not be saved. Please, try again.'));
             }
         }
+        $brochures = $this->PageText->BrochurePage->MstBrochure->find('list');
+        $pages = array();
+        $this->set(compact('pages','brochures'));
     }
 
     /**
@@ -65,20 +74,38 @@ class PageTextsController extends AppController {
 * @param string $id
 * @return void
 */
-    public function edit($id = null) {
+        public function edit($id = null)
+    {
         if (!$this->PageText->exists($id)) {
             throw new NotFoundException(__('Invalid task'));
         }
-        $this->request->data['PageText']['id']=$id;
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->PageText->save($this->request->data,'true',array('id','modifier_id','txtContent','xPos','yPos',''))) {
-                $this->Session->setFlash(__('The task has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+        $this->request->data['PageText']['id'] = $id;
+        if ($this->request->is(array('post','put'))) {
+            if ($this->PageText->save($this->request->data, 'true', array(
+                'id',
+                'modifier_id',
+                'textContent',
+                'xPos',
+                'yPos',
+                'txtWidth',
+                'txtHeight',
+                'txtFontsize',
+                'txtColor',
+                            
+            ))) {
+                $this->Session->setFlash('The task has been saved.');
+                return $this->redirect(array(
+                    'action' => 'index'
+                ));
             } else {
-                $this->Session->setFlash(__('The task could not be saved. Please, try again.'));
+                $this->Session->setFlash('The task could not be saved. Please, try again.');
             }
         } else {
-            $options = array('conditions' => array('PageText.' . $this->PageText->primaryKey => $id));
+            $options             = array(
+                'conditions' => array(
+                    'PageText.' . $this->PageText->primaryKey => $id
+                )
+            );
             $this->request->data = $this->PageText->find('first', $options);
         }
 

@@ -51,23 +51,34 @@ class AppController extends Controller {
 
 
 
-    public $components = array(
+    public $components = [
         'Session',
-        'Auth' => array(
-            'loginRedirect' => array(
+        'RequestHandler',
+        'Auth' => [
+            'loginRedirect' => [
                 'controller' => 'users',
                 'action' => 'user_info'
-            ),
-            'logoutRedirect' => array(
+            ],
+            'logoutRedirect' => [
                 'controller' => 'users',
                 'action' => 'login'
-            )
-        )
-    );
+            ],
+            'authenticate' => ['Form'=>['recursive'=>1]],
+            'authorize' => ['Tools.Tiny'],
+            'authError' => 'Did you really think you are allowed to see that?',
+        ],
+        'Security'
+    ];
 
     public function beforeFilter() {
+        $userRoles = $this->Session->read('Auth.User.Role.role');
+            if ($userRoles == 'admin' ) {
+                // Skip auth for this user entirely
+                $this->Auth->allow(); // cake1.x: `$this->Auth->allow('*');`
+            }
+
         parent::beforeFilter();
-        $this->Auth->allow('login','lost_password','change_password_init','change_password');
+        $this->Auth->allow('login','lost_password','change_password_init','change_password','logout');
     }
 
 }
