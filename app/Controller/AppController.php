@@ -67,7 +67,8 @@ class AppController extends Controller {
             'authorize' => ['Tools.Tiny'],
             'authError' => 'Did you really think you are allowed to see that?',
         ],
-        'Security'
+        'Security',
+       // 'Zip'
     ];
 
     public function beforeFilter() {

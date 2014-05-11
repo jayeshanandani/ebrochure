@@ -206,7 +206,8 @@ public function foo($array) {
     }
 
     public function a() {
-        $data = $this->MstBrochure->find('all', [
+
+   $data = $this->MstBrochure->find('all', [
     'contain' => [
         'BrochurePage' => [
             'fields'=>['id','pageIndex','isForeGround','hasText'],
@@ -268,12 +269,12 @@ $xmlString = $xmlObject->asXML();
 $this->set('xmlString',$xmlString);
 
         $this->autoRender = false;
-        $dir = new Folder(WWW_ROOT . 'MstBrochure', true,0777);
+        $dir = new Folder(WWW_ROOT . 'MstBrochure'.DS.'MstBrochure', true,0777);
         $path = $dir->path;
         debug($path);
         $file = new File($path.'/brochure.xml', true, 0777);
         $file->write($xmlString);
-        $dir->create('MstBrochure'.DS.'content');
+        $dir->create('MstBrochure'.DS.'MstBrochure'.DS.'content');
 $images = glob('/var/www/ruchika/app/webroot/img/uploads/*');
 //debug($images);
 
@@ -288,26 +289,74 @@ $images = glob('/var/www/ruchika/app/webroot/img/uploads/*');
         ],'conditions'=>['MstBrochure.id'=>1],'fields'=>['id','name','description','bgMusic','bgColor']
     ]
 );
-        debug($data1);
+       // debug($data1);
 foreach ($images as $key => $value) {
 $name = basename($value);
+debug($name);
 foreach ($data1[0]['BrochurePage'] as $key => $value) {
     foreach ($value as $key1 => $value1) {
         //debug($value);
         if($key1=='MediaFile') {
             foreach ($value1 as $key2 => $value2) {
-                if($key2=='filename'){
-                    debug($value2);
-                }
+               foreach ($value2 as $key3 => $value3) {
+                   if($key3==='filename') {
+                  //  echo getcwd();
+                   copy(WWW_ROOT.'img/uploads/'.$value3,WWW_ROOT."/MstBrochure/MstBrochure/content/".$value3);
+                   }
+               }
+                
             }
         }
     }
 }
 }
 
-
-
+$this->Zip('/var/www/ruchika/app/webroot/MstBrochure','/var/www/1.zip');
 
     }
+
+        public function Zip($source, $destination) {
+    if (!extension_loaded('zip') || !file_exists($source)) {
+        return false;
+    }
+
+    $zip = new ZipArchive();
+    if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
+        return false;
+    }
+
+    $source = str_replace('\\', '/', realpath($source));
+
+    if (is_dir($source) === true)
+    {
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+
+        foreach ($files as $file)
+        {
+            $file = str_replace('\\', '/', $file);
+
+            // Ignore "." and ".." folders
+            if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+                continue;
+
+            $file = realpath($file);
+
+            if (is_dir($file) === true)
+            {
+                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+            }
+            else if (is_file($file) === true)
+            {
+                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+            }
+        }
+    }
+    else if (is_file($source) === true)
+    {
+        $zip->addFromString(basename($source), file_get_contents($source));
+    }
+
+    return $zip->close();
+}
 
 }
