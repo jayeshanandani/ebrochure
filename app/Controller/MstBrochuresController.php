@@ -217,7 +217,7 @@ public function foo($array) {
         }
     }
 
-    public function a() {
+    public function a($id) {
 
    $data = $this->MstBrochure->find('all', [
     'contain' => [
@@ -230,7 +230,7 @@ public function foo($array) {
                 'fields' => ['id','filename','name','type']
                 ],
             ],
-        ],'conditions'=>['MstBrochure.id'=>1],'fields'=>['id','name','description','bgMusic','bgColor']
+        ],'conditions'=>['MstBrochure.id'=>$id],'fields'=>['id','name','description','bgMusic','bgColor']
     ]
 );
 $brochurename = $data[0]['MstBrochure']['name'];
@@ -287,7 +287,6 @@ $this->set('xmlString',$xmlString);
         $file = new File($path.'/brochure.xml', true, 0777);
         $file->write($xmlString);
         $dir->create($brochurename.DS.$brochurename.DS.'content');
-$images = glob('/var/www/ruchika/app/webroot/img/uploads/*');
 
         $data1 = $this->MstBrochure->find('all', [
     'contain' => [
@@ -297,20 +296,17 @@ $images = glob('/var/www/ruchika/app/webroot/img/uploads/*');
                 'fields' => ['id','filename','name','type']
                 ],
             ],
-        ],'conditions'=>['MstBrochure.id'=>1],'fields'=>['id','name','description','bgMusic','bgColor']
+        ],'conditions'=>['MstBrochure.id'=>$id],'fields'=>['id','name','description','bgMusic','bgColor']
     ]
 );
 
-foreach ($images as $key => $value) {
-$name = basename($value);
+
 foreach ($data1[0]['BrochurePage'] as $key => $value) {
     foreach ($value as $key1 => $value1) {
-        //debug($value);
         if($key1=='MediaFile') {
             foreach ($value1 as $key2 => $value2) {
                foreach ($value2 as $key3 => $value3) {
                    if($key3==='filename') {
-                  //  echo getcwd();
                    copy(WWW_ROOT.'img/uploads/'.$value3,WWW_ROOT."/".$brochurename."/".$brochurename."/content/".$value3);
                    }
                }
@@ -318,7 +314,6 @@ foreach ($data1[0]['BrochurePage'] as $key => $value) {
             }
         }
     }
-}
 }
 
 $this->Zip('/var/www/ruchika/app/webroot/'.$brochurename,'/var/www/'.$brochurename);

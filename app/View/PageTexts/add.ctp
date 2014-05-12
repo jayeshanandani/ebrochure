@@ -12,7 +12,7 @@ $url             = $this->Html->url(array(
 ));
 
 $emptyPages = count($pages) > 0 ? Configure::read('Select.defaultAfter') : array(
-    '0' => Configure::read('Select.naBefore') . __('Select Institution First') . Configure::read('Select.naAfter')
+    '0' => Configure::read('Select.naBefore') . __('Select Brochure First') . Configure::read('Select.naAfter')
 );
 echo $this->Form->input('brochure_id', array(
     'id' => 'brochures',

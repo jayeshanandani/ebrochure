@@ -7,10 +7,7 @@
 	    echo $this->Form->input('institute_id');
 	    echo $this->Form->input('type_id');
 		echo $this->Form->input('name',array('autocomplete'=>'off'));
-
 		echo $this->Form->input('description', array('type' =>'textarea','autocomplete'=>'off' ));
-
-		echo $this->Form->input('bgMusic',array('type'=>'file'));
 		echo $this->Form->input('bgColor',array('type'=>'color'));
 	?>
 	</fieldset>

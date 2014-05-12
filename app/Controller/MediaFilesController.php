@@ -80,7 +80,12 @@ class MediaFilesController extends AppController {
             }
         }
         unset($this->request->data['MediaFile']['brochure_id']);
+    if(Auth::user('Role.role')=='superadmin'){
+        debug(Auth::user('id'));
         $brochures = $this->MediaFile->BrochurePage->MstBrochure->find('list');
+    }else {
+         $brochures = $this->MediaFile->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1,'MstBrochure.creator_id'=>$this->Auth->user('id')]));
+    }
         $mediafiles = array();
         $this->set(compact('mediafiles','brochures'));
     }

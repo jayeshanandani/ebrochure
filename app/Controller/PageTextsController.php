@@ -24,12 +24,7 @@ class PageTextsController extends AppController {
     public function index() {
         $this->PageText->recursive = 0;
         $this->set('pageTexts', $this->Paginator->paginate());
-
         $brochure = $this->PageText->find('all');
-        $this->set(array(
-            'PageText' => $brochure,
-            '_serialize' => array('PageText')
-            ));
     }
 
     /**
@@ -62,7 +57,11 @@ class PageTextsController extends AppController {
                 $this->Session->setFlash(__('The page text could not be saved. Please, try again.'));
             }
         }
-        $brochures = $this->PageText->BrochurePage->MstBrochure->find('list');
+        if(Auth::user('Role.role')=='superadmin'){
+       $brochures = $this->PageText->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1]));
+    }else {
+          $brochures = $this->PageText->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1,'MstBrochure.creator_id'=>$this->Auth->user('id')]));
+    }
         $pages = array();
         $this->set(compact('pages','brochures'));
     }

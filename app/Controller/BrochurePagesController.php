@@ -61,7 +61,7 @@ class BrochurePagesController extends AppController {
  
 $options = [
     'conditions' => array('BrochurePage.brochure_id' => $brochure_id),
-    'recursive' => 1, //int
+    'recursive' => -1, //int
     'fields' => array('BrochurePage.pageIndex'),
     'order' => array('BrochurePage.pageIndex DESC'),
     'limit' => 1, //int
@@ -80,7 +80,12 @@ $this->request->data['BrochurePage']['pageIndex'] =$data[0]['BrochurePage']['pag
                 $this->Session->setFlash(__('The brochure page could not be saved. Please, try again.'));
             }
         }
-        $brochures = $this->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1]));
+        if(Auth::user('Role.role')=='superadmin'){
+       $brochures = $this->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1]));
+    }else {
+          $brochures = $this->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1,'MstBrochure.creator_id'=>$this->Auth->user('id')]));
+    }
+       
         $this->set(compact('brochures'));
     }
 
