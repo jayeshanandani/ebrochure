@@ -24,9 +24,8 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'user_info'));
-	Router::connect('/add', array('controller' => 'users', 'action' => 'add'));
+	 Router::connect('/', array('controller' => 'users', 'action' => 'login'));
+	 /*Router::connect('/add', array('controller' => 'users', 'action' => 'add'));
 	 Router::connect('/user_info', array('controller' => 'users', 'action' => 'user_info'));
 	 Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 	 Router::connect('/media', array('controller' => 'mediaFiles', 'action' => 'index'));
@@ -38,7 +37,7 @@
 	 Router::connect('/mst_br', array('controller' => 'mst_brochures', 'action' => 'index'));
 	 Router::connect('/add task', array('controller' => 'mst_brochures', 'action' => 'add'));
 	 Router::connect('/br_pages', array('controller' => 'brochure_pages', 'action' => 'add'));
-	 Router::connect('/page_text', array('controller' => 'page_texts', 'action' => 'add'));
+	 Router::connect('/page_text', array('controller' => 'page_texts', 'action' => 'add'));*/
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
@@ -49,7 +48,7 @@
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
-	CakePlugin::routes();
+  CakePlugin::routes();
   Router::setExtensions(['json','xml']);
   Router::parseExtensions('json','xml');
 

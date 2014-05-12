@@ -4,10 +4,16 @@
 	<fieldset>
 		<legend><?php echo __('Add User'); ?></legend>
 	<?php
-	  echo $this->Form->input('role_id', array('options' => array('1'=>'admin','2'=> 'user')));
+
+	    if (Auth::user('Role.role')=='superadmin') { 
+	    	 echo $this->Form->input('role_id', array('options' => array('1'=>'admin','2'=> 'user'))); 	
+	    }
+	    else {
+	    	echo $this->Form->input('role_id', array('options' => array('2'=> 'user'))); 
+	    }
 		echo $this->Form->input('username',array('autocomplete'=>'off'));
 		echo $this->Form->input('pwd', array('type' => 'password','label'=>'Password'));
-    echo $this->Form->input('pwd_repeat', array('type' => 'password','label'=>'Password repeat'));
+        echo $this->Form->input('pwd_repeat', array('type' => 'password','label'=>'Password repeat'));
 		echo $this->Form->input('firstname',array('autocomplete'=>'off'));
 		echo $this->Form->input('middlename',array('autocomplete'=>'off'));
 		echo $this->Form->input('lastname',array('autocomplete'=>'off'));

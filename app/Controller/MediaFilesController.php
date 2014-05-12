@@ -23,14 +23,23 @@ class MediaFilesController extends AppController {
 */
 
     public function index() {
-        $this->MediaFile->recursive = 0;
-        $this->set('mediaFiles', $this->Paginator->paginate());
 
-         $mediafiles = $this->MediaFile->find('all');
-        $this->set(array(
-            'MediaFile' => $mediafiles,
-            '_serialize' => array('MediaFile')
-            ));
+        if(AuthComponent::user('role_id')==3){
+
+            $this->MediaFile->recursive = 0;
+            $this->set('mediaFiles', $this->Paginator->paginate());
+
+        } else {
+            
+             $this->MediaFile->recursive = 0;
+             $this->paginate        = array(
+                'conditions' => array(
+                'MediaFile.creator_id' => AuthComponent::user('id')
+            )
+        );
+            $this->set('mediaFiles', $this->Paginator->paginate());
+            $mediafiles = $this->MediaFile->find('all');
+        }
     }
 
     /**

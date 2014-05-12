@@ -65,20 +65,17 @@ class AppController extends Controller {
             ],
             'authenticate' => ['Form'=>['recursive'=>1]],
             'authorize' => ['Tools.Tiny'],
-            'authError' => 'Did you really think you are allowed to see that?',
+            //'authError' => 'Did you really think you are allowed to see that?',
         ],
         'Security',
-       // 'Zip'
     ];
 
-    public function beforeFilter() {
-        $userRoles = $this->Session->read('Auth.User.Role.role');
-            if ($userRoles == 'admin' ) {
-                // Skip auth for this user entirely
-                $this->Auth->allow(); // cake1.x: `$this->Auth->allow('*');`
-            }
-
+     public function beforeFilter() {
         parent::beforeFilter();
+
+   if(Auth::user('Role.role') == 'superadmin') {
+        $this->Auth->allow();
+   }
         $this->Auth->allow('login','lost_password','change_password_init','change_password','logout');
     }
 

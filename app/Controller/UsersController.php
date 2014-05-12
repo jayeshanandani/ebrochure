@@ -50,8 +50,11 @@ class UsersController extends AppController {
                     $this->Auth->logout();
                     $this->redirect(array('action' => 'login'));
                 } else {
-                    debug($this->Session->read('Auth.User.Role.role'));
-                    return $this->redirect($this->Auth->redirect());
+                    if(Auth::user('Role.role') == 'admin' || Auth::user('Role.role') == 'superadmin' ) {
+                        return $this->redirect($this->Auth->redirect());
+                    } else {
+                        return $this->redirect(array('controller' => 'mst_brochures', 'action' => 'index'));
+                    }
                 }
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
@@ -104,13 +107,18 @@ class UsersController extends AppController {
 
 
     public function user_info() {
+        if(AuthComponent::user('role_id')==1){
         $this->User->recursive = 0;
         $this->paginate        = array(
             'conditions' => array(
-                'User.creator_id' => $this->Auth->user('id')
+                'User.creator_id' => AuthComponent::user('id')
             )
         );
         $this->set('users', $this->paginate());
+        }else {
+             $this->User->recursive = 0;
+        $this->set('users', $this->paginate());
+        }
     }
 
     /**

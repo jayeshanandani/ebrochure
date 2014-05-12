@@ -25,8 +25,20 @@ class MstBrochuresController extends AppController {
 * @return void
 */
     public function index() {
-        $this->MstBrochure->recursive = 0;
-        $this->set('mstBrochures', $this->Paginator->paginate());
+    	if(AuthComponent::user('role_id')==3){
+
+            $this->MstBrochure->recursive = 0;
+        	$this->set('mstBrochures', $this->Paginator->paginate());
+        } else {
+             $this->paginate        = array('contain'=>['MstBrochureType','Institute'],
+                'conditions' => array(
+                'MstBrochure.creator_id' => AuthComponent::user('id')
+            )
+        );
+             $this->MstBrochure->recursive = 0;
+        	 $this->set('mstBrochures', $this->Paginator->paginate());
+        }
+       
 
 $data = $this->MstBrochure->find('all', [
     'contain' => [
@@ -221,7 +233,7 @@ public function foo($array) {
         ],'conditions'=>['MstBrochure.id'=>1],'fields'=>['id','name','description','bgMusic','bgColor']
     ]
 );
-
+$brochurename = $data[0]['MstBrochure']['name'];
 $newdata=[];
 $newdata = $data[0];
 $a=[];
@@ -269,14 +281,13 @@ $xmlString = $xmlObject->asXML();
 $this->set('xmlString',$xmlString);
 
         $this->autoRender = false;
-        $dir = new Folder(WWW_ROOT . 'MstBrochure'.DS.'MstBrochure', true,0777);
+        $dir = new Folder(WWW_ROOT .$brochurename.DS.$brochurename, true,0777);
         $path = $dir->path;
         debug($path);
         $file = new File($path.'/brochure.xml', true, 0777);
         $file->write($xmlString);
-        $dir->create('MstBrochure'.DS.'MstBrochure'.DS.'content');
+        $dir->create($brochurename.DS.$brochurename.DS.'content');
 $images = glob('/var/www/ruchika/app/webroot/img/uploads/*');
-//debug($images);
 
         $data1 = $this->MstBrochure->find('all', [
     'contain' => [
@@ -289,10 +300,9 @@ $images = glob('/var/www/ruchika/app/webroot/img/uploads/*');
         ],'conditions'=>['MstBrochure.id'=>1],'fields'=>['id','name','description','bgMusic','bgColor']
     ]
 );
-       // debug($data1);
+
 foreach ($images as $key => $value) {
 $name = basename($value);
-debug($name);
 foreach ($data1[0]['BrochurePage'] as $key => $value) {
     foreach ($value as $key1 => $value1) {
         //debug($value);
@@ -301,7 +311,7 @@ foreach ($data1[0]['BrochurePage'] as $key => $value) {
                foreach ($value2 as $key3 => $value3) {
                    if($key3==='filename') {
                   //  echo getcwd();
-                   copy(WWW_ROOT.'img/uploads/'.$value3,WWW_ROOT."/MstBrochure/MstBrochure/content/".$value3);
+                   copy(WWW_ROOT.'img/uploads/'.$value3,WWW_ROOT."/".$brochurename."/".$brochurename."/content/".$value3);
                    }
                }
                 
@@ -311,7 +321,7 @@ foreach ($data1[0]['BrochurePage'] as $key => $value) {
 }
 }
 
-$this->Zip('/var/www/ruchika/app/webroot/MstBrochure','/var/www/1.zip');
+$this->Zip('/var/www/ruchika/app/webroot/'.$brochurename,'/var/www/'.$brochurename);
 
     }
 

@@ -3,7 +3,6 @@
 	<h2><?php echo __('Mst Brochures'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id','acb'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('type_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
@@ -14,9 +13,8 @@
 	</tr>
 	<?php foreach ($mstBrochures as $mstBrochure): ?>
 	<tr>
-		<td><?php echo h($mstBrochure['MstBrochure']['id']); ?>&nbsp;</td>
 		<td><?php echo h($mstBrochure['MstBrochure']['name']); ?>&nbsp;</td>
-		<td><?php echo h($mstBrochure['MstBrochure']['type_id']); ?>&nbsp;</td>
+		<td><?php echo h($mstBrochure['MstBrochureType']['name']); ?>&nbsp;</td>
 		<td><?php echo h($mstBrochure['MstBrochure']['description']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($mstBrochure['Institute']['name'], array('controller' => 'institutes', 'action' => 'view', $mstBrochure['Institute']['id'])); ?>
