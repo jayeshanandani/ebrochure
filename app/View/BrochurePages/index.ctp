@@ -34,16 +34,16 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $brochurePage['BrochurePage']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $brochurePage['BrochurePage']['id'])); ?>
-			<?php
+			<?php if(AuthComponent::user('role_id')!=2) {
             if($brochurePage['BrochurePage']['isActive'] == 1){
                 echo $this->Form->postLink(__('Deactive'), array('action' => 'deactivate', $brochurePage['BrochurePage']['id']), null, __('Are you sure you want to deactivate # %s?', $brochurePage['BrochurePage']['id']));
             }
-        ?>
-        <?php
+        
             if($brochurePage['BrochurePage']['isActive'] == 0){
                 echo $this->Form->postLink(__('Active'), array('action' => 'activate', $brochurePage['BrochurePage']['id']), null, __('Are you sure you want to activate # %s?', $brochurePage['BrochurePage']['id']));
             }
-        ?>
+        }
+       ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

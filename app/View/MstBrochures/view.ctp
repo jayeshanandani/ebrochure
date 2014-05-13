@@ -33,15 +33,15 @@
             <td class="actions">
                 <?php echo $this->Html->link(__('View Page Text'), array('controller' => 'page_texts', 'action' => 'view', $pages['id'])); ?>
                 <?php echo $this->Html->link(__('Edit page details' ), array('controller' => 'brochure_pages', 'action' => 'edit', $pages['id'])); ?>
-                <?php
+                <?php if(AuthComponent::user('role_id')!=2){
             if($pages['isActive'] == 1){
                 echo $this->Form->postLink(__('Deactive'), array('controller' => 'brochure_pages','action' => 'deactivate', $pages['id']), null, __('Are you sure you want to deactivate # %s?', $pages['id']));
             }
-        ?>
-        <?php
+       
             if($pages['isActive'] == 0){
                 echo $this->Form->postLink(__('Active'), array('controller' => 'brochure_pages','action' => 'activate', $pages['id']), null, __('Are you sure you want to activate # %s?', $pages['id']));
             }
+        }
         ?>
             </td>
         </tr>

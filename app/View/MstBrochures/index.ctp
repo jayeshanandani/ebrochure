@@ -21,16 +21,16 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View pages'), array('action' => 'view', $mstBrochure['MstBrochure']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit Brochure Detailss'), array('action' => 'edit', $mstBrochure['MstBrochure']['id'])); ?>
-			<?php
+			<?php if(AuthComponent::user('role_id')!=2){
             if($mstBrochure['MstBrochure']['isActive'] == 1){
                 echo $this->Form->postLink(__('Deactive'), array('action' => 'deactivate', $mstBrochure['MstBrochure']['id']), null, __('Are you sure you want to deactivate # %s?', $mstBrochure['MstBrochure']['id']));
             }
-        ?>
-        <?php
+       
             if($mstBrochure['MstBrochure']['isActive'] == 0){
                 echo $this->Form->postLink(__('Active'), array('action' => 'activate', $mstBrochure['MstBrochure']['id']), null, __('Are you sure you want to activate # %s?', $mstBrochure['MstBrochure']['id']));
             }
-        ?>
+        }
+     ?>
         <?php echo $this->Html->link(__('Generate XML'), array('action' => 'a', $mstBrochure['MstBrochure']['id'])); ?>
 		</td>
 	</tr>

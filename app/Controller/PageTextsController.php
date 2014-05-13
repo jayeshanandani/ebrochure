@@ -46,11 +46,14 @@ class PageTextsController extends AppController {
 * @return void
 */
     public function view($id = null) {
-        if (!$this->PageText->exists($id)) {
-            throw new NotFoundException(__('Invalid page text'));
-        }
-        $options = array('conditions' => array('PageText.' . $this->PageText->primaryKey => $id));
-        $this->set('pageText', $this->PageText->find('first', $options));
+        $options = array('conditions' => array('PageText.page_id'=> $id));
+        $data = $this->PageText->find('first', $options);
+        if($data) {
+     	   $this->set('pageText', $data);
+     
+    	} else {
+    		return $this->redirect(['controller'=>'mst_brochures','action'=>'index']);
+    	}
     }
 
     /**

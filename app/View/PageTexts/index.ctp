@@ -26,16 +26,16 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $pageText['PageText']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $pageText['PageText']['id'])); ?>
-			<?php 
+			<?php if(AuthComponent::user('role_id')!=2) {
             if($pageText['PageText']['isActive'] == 1){
                 echo $this->Form->postLink(__('Dective'), array('action' => 'deactivate', $pageText['PageText']['id']), null, __('Are you sure you want to deactivate # %s?', $pageText['PageText']['id'])); 
             }
-        ?>
-        <?php 
+      
             if($pageText['PageText']['isActive'] == 0){
                 echo $this->Form->postLink(__('Active'), array('action' => 'activate', $pageText['PageText']['id']), null, __('Are you sure you want to activate # %s?', $pageText['PageText']['id'])); 
             }
-        ?>
+        }
+       ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
