@@ -95,8 +95,7 @@ foreach($a as $key => $value) {
     }
 
 }
-//$b=$this->MstBrochure->foo($a);
-//debug($b);
+
 $xmlObject = Xml::fromArray($e);
 $xmlString = $xmlObject->asXML();
 $this->set('xmlString',$xmlString);

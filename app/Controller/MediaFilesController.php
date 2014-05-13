@@ -65,7 +65,7 @@ class MediaFilesController extends AppController {
 * @return void
 */
     public function add() {
-        if ($this->request->is('post')) {
+        if ($this->request->is('post') && $this->request->data['MediaFile']['page_id']!=0) {
             $filename = $this->request->data['MediaFile']['filename']['name'];
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
             $name = pathinfo($filename, PATHINFO_FILENAME);
@@ -81,7 +81,6 @@ class MediaFilesController extends AppController {
         }
         unset($this->request->data['MediaFile']['brochure_id']);
     if(Auth::user('Role.role')=='superadmin'){
-        debug(Auth::user('id'));
         $brochures = $this->MediaFile->BrochurePage->MstBrochure->find('list');
     }else {
          $brochures = $this->MediaFile->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1,'MstBrochure.creator_id'=>$this->Auth->user('id')]));

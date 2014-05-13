@@ -26,7 +26,7 @@ class MediaFile extends AppModel {
             ),
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
-                'rule' => array('mimeType', array('image/gif','image/png','image/jpg','image/jpeg','application/pdf','audio/mpeg','video/mpeg')),
+                'rule' => array('mimeType', array('image/gif','image/png','image/jpg','image/jpeg','application/pdf','audio/mpeg','video/mpeg','video/x-flv')),
                 'message' => 'Invalid file, only images allowed',
                 'required' => FALSE,
                 'allowEmpty' => TRUE,

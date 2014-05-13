@@ -9,7 +9,7 @@ $(function() {
             success: function(response) {
                 if (response.pages) {
 					destination.empty(),
-					destination.append('<option value="Please Select">Please Select</option>');
+					destination.append('<option value="0">Please Select</option>');
 					appendData(response.pages, destination); // Another from duch with the appendData function added as well, but not working either.
                 }
             },
@@ -39,7 +39,7 @@ $(function() {
 
 		}	else {
         destination.empty(),
-        destination.append('<option value="Select Brochure First">Select Brochure First</option>');
+        destination.append('<option value="0">Select Brochure First</option>');
 		}
     });
 });

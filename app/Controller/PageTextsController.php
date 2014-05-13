@@ -36,7 +36,6 @@ class PageTextsController extends AppController {
             $this->set('pageTexts', $this->Paginator->paginate());
         }
         
-        //$brochure = $this->PageText->find('all');
     }
 
     /**
@@ -60,7 +59,7 @@ class PageTextsController extends AppController {
 * @return void
 */
     public function add() {
-        if ($this->request->is('post')) {
+        if ($this->request->is('post') && $this->request->data['PageText']['page_id']!=0) {
             $this->PageText->create();
             if ($this->PageText->save($this->request->data)) {
                 $this->Session->setFlash(__('The page text has been saved.'));
@@ -69,6 +68,7 @@ class PageTextsController extends AppController {
                 $this->Session->setFlash(__('The page text could not be saved. Please, try again.'));
             }
         }
+        unset($this->request->data['PageText']['brochure_id']);
         if(Auth::user('Role.role')=='superadmin'){
        $brochures = $this->PageText->BrochurePage->MstBrochure->find('list',array('conditions'=>['MstBrochure.isActive'=>1]));
     }else {

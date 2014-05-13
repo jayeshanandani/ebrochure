@@ -3,24 +3,33 @@
 	<h2><?php echo __('Brochure Pages'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('brochure_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('pageIndex'); ?></th>
 			<th><?php echo $this->Paginator->sort('isForeGround'); ?></th>
 			<th><?php echo $this->Paginator->sort('hasText'); ?></th>
-			<!--<th><?php echo $this->Paginator->sort('media_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('isActive'); ?></th>-->
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($brochurePages as $brochurePage): ?>
 	<tr>
-		<td><?php echo h($brochurePage['BrochurePage']['id']); ?>&nbsp;</td>
 		<td><?php echo h($brochurePage['MstBrochure']['name']);  ?>&nbsp;</td>
 		<td><?php echo h($brochurePage['BrochurePage']['pageIndex']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['isForeGround']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['hasText']); ?>&nbsp;</td>
-		<!--<td><?php echo h($brochurePage['BrochurePage']['media_id']); ?>&nbsp;</td>
-		<td><?php echo h($brochurePage['BrochurePage']['isActive']); ?>&nbsp;</td>-->
+		 <td>
+            <?php 
+            if($brochurePage['BrochurePage']['isForeGround'] ==1 ) {
+            	echo "Yes"; 
+            } else{
+            	echo "No";
+            }
+            ?></td>
+                       <td>
+            <?php 
+            if($brochurePage['BrochurePage']['hasText'] ==1 ) {
+            	echo "Yes"; 
+            } else{
+            	echo "No";
+            }
+            ?></td>
+		
 		
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $brochurePage['BrochurePage']['id'])); ?>

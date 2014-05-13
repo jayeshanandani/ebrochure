@@ -22,16 +22,21 @@ class BrochurePagesController extends AppController {
 * @return void
 */
     public function index() {
-        $this->BrochurePage->recursive = 0;
-        $this->set('brochurePages', $this->Paginator->paginate());
 
+        if(AuthComponent::user('role_id')==3){
 
-
-        $brochure = $this->BrochurePage->find('all');
-        $this->set(array(
-            'BrochurePage' => $brochure,
-            '_serialize' => array('BrochurePage')
-            ));
+            $this->BrochurePage->recursive = 0;
+            $this->set('brochurePages', $this->Paginator->paginate());
+        } else {
+             $this->paginate        = array(
+                'conditions' => array(
+                'BrochurePage.creator_id' => AuthComponent::user('id')
+            )
+        );
+            $this->BrochurePage->recursive = 0;
+            $this->set('brochurePages', $this->Paginator->paginate());
+        }
+       
     }
 
     /**
