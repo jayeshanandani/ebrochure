@@ -57,7 +57,7 @@ class AppController extends Controller {
         'Auth' => [
             'loginRedirect' => [
                 'controller' => 'users',
-                'action' => 'user_info'
+                'action' => 'dashboard'
             ],
             'logoutRedirect' => [
                 'controller' => 'users',
@@ -65,7 +65,11 @@ class AppController extends Controller {
             ],
             'authenticate' => ['Form'=>['recursive'=>1]],
             'authorize' => ['Tools.Tiny'],
-            //'authError' => 'Did you really think you are allowed to see that?',
+             'unauthorizedRedirect'=>array(
+                'plugin'=>false,
+                'controller' => 'users',
+                'action' => 'dashboard'
+            ),
         ],
         'Security',
     ];

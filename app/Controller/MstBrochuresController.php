@@ -145,8 +145,8 @@ public function foo($array) {
                 $this->Session->setFlash(__('The new task could not be saved. Please, try again.'));
             }
         }
-        $institutes = $this->MstBrochure->Institute->find('list');
-        $types = $this->MstBrochure->MstBrochureType->find('list',array('conditions'=>['MstBrochureType.isActive'=>0]));
+        $institutes = $this->MstBrochure->Institute->find('list',array('conditions'=>['Institute.isActive'=>1]));
+        $types = $this->MstBrochure->MstBrochureType->find('list',array('conditions'=>['MstBrochureType.isActive'=>1]));
         $this->set(compact('institutes','types'));
     }
 

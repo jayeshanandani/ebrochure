@@ -50,17 +50,18 @@ class UsersController extends AppController {
                     $this->Auth->logout();
                     $this->redirect(array('action' => 'login'));
                 } else {
-                    if(Auth::user('Role.role') == 'admin' || Auth::user('Role.role') == 'superadmin' ) {
-                        return $this->redirect($this->Auth->redirect());
-                    } else {
-                        return $this->redirect(array('controller' => 'mst_brochures', 'action' => 'index'));
-                    }
+                    $this->request->data['User']['id'] = AuthComponent::user('id');
+                    $this->User->save($this->request->data,true,['id']);
+                    return $this->redirect('/users/dashboard');
                 }
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
         }
         unset($this->request->data['User']['username']);
         unset($this->request->data['User']['password']);
+    }
+    public function dashboard() {
+        
     }
 
     /**

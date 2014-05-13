@@ -22,9 +22,21 @@ class PageTextsController extends AppController {
 * @return void
 */
     public function index() {
-        $this->PageText->recursive = 0;
-        $this->set('pageTexts', $this->Paginator->paginate());
-        $brochure = $this->PageText->find('all');
+        if(AuthComponent::user('role_id')==3){
+
+            $this->PageText->recursive = 0;
+            $this->set('pageTexts', $this->Paginator->paginate());
+        } else {
+             $this->paginate        = array(
+                'conditions' => array(
+                'PageText.creator_id' => AuthComponent::user('id')
+            )
+        );
+            $this->PageText->recursive = 0;
+            $this->set('pageTexts', $this->Paginator->paginate());
+        }
+        
+        //$brochure = $this->PageText->find('all');
     }
 
     /**

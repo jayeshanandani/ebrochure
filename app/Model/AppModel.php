@@ -30,6 +30,8 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+	public $actsAs = array('Containable','WhoDidIt');
 	
 		public function validateUnique($data, $fields = array(), $options = array()) {
 		$id = (!empty($this->data[$this->alias][$this->primaryKey]) ? $this->data[$this->alias][$this->primaryKey] : 0);

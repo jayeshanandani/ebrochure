@@ -3,6 +3,7 @@
 
    <div class="right" id="cssmenu">
 	<ul>
+    <li class='active'><?php echo $this->Html->link(__("Home",true),array('controller' => 'users' ,'action'=>'dashboard'))?></li>
    <?php if(Auth::user('Role.role') == 'admin' || Auth::user('Role.role') == 'superadmin') { ?>
    	<li class='has-sub'><?php echo $this->Html->link(__("User Management"),"") ?>
       <ul>
